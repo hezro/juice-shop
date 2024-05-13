@@ -111,7 +111,7 @@
   "dependencies": {
     "adm-zip": "0.4.7",
     "body-parser": "^1.19.0",
-    "check-dependencies": "^1.1.0",
+    "check-dependencies": "^2.0.0",
     "clarinet": "^0.12.4",
     "colors": "1.4.0",
     "compression": "^1.7.4",
@@ -173,7 +173,7 @@
     "sequelize-notupdate-attributes": "^1.0.0",
     "serve-index": "^1.9.1",
     "socket.io": "^3.1.0",
-    "sqlite3": "^5.0.0",
+    "sqlite3": "^5.0.3",
     "svg-captcha": "^1.4.0",
     "swagger-ui-express": "^4.1.4",
     "ts-node-dev": "^1.1.6",
