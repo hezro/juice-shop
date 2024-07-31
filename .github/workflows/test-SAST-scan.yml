@@ -1,0 +1,47 @@
+name: Snyk SAST Scan
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  snyk-pipeline:
+    runs-on: ubuntu-latest
+    name: Snyk SAST Scan
+    env:
+      SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+    steps:      
+      - uses: actions/checkout@v3
+      - name: Download Snyk and snyk-to-html
+        run: |
+         sudo npm install -g snyk
+         sudo npm install -g snyk-to-html
+      #- name: Download Snyk
+      #  run: |
+      #    wget -O snyk https://static.snyk.io/cli/latest/snyk-linux
+      #    chmod +x ./snyk
+      #    mv ./snyk /usr/local/bin/
+          
+      - name: Authenticate Snyk
+        run: snyk auth ${SNYK_TOKEN}
+          
+      - name: Run Snyk Code Scan
+        run: snyk code test --severity-threshold=high --sarif-file-output=snyk_sast_results.json    
+        continue-on-error: true
+
+      - name: Upload SARIF file
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: snyk_sast_results.json
+          
+      - name: Generate Snyk HTML File
+        run: snyk-to-html -i snyk_sast_results.sarif -o snyk_sast_results.html
+        continue-on-error: true
+
+      - name: Archive Snyk HTML Scan Results
+        uses: actions/upload-artifact@v3
+        with:
+          name: Archive Snyk Scan Results
+          path: snyk_sast_results.html
