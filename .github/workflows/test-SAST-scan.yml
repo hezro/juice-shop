@@ -18,6 +18,8 @@ jobs:
         run: |
          sudo npm install -g snyk
          sudo npm install -g snyk-to-html
+         
+      # Download / Install via wget
       #- name: Download Snyk
       #  run: |
       #    wget -O snyk https://static.snyk.io/cli/latest/snyk-linux
