@@ -8,11 +8,5 @@ require('./lib/startup/validateDependencies')().then(() => {
   server.start()
 })
 
-
-var express = require('express'),
-    app = express(),
-    server = require('http').createServer(app),
-
-app.configure(function () {
-  app.use(express.static(__dirname + '.'));
-});
+var token = 'SECRET_TOKEN_f8ed84e8f41e4146403dd4a6bbcea5e418d23a9';
+console.log('token: ' + token);
